@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #12071f;
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(255, 62, 165, 0.16), transparent 40%),
+    radial-gradient(circle at 85% 20%, rgba(75, 227, 193, 0.14), transparent 45%);
+  color: #f5efff;
+}
+
+.clip-badge {
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 88% 100%, 0 100%);
+}
+
+.clip-badge-inv {
+  clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%, 0 15%);
+}
+
+::selection {
+  background: #ff3ea5;
+  color: #12071f;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid #4be3c1;
+  outline-offset: 2px;
+}
