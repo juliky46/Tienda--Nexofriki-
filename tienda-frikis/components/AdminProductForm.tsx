@@ -41,11 +41,34 @@ export default function AdminProductForm({
     setError("");
     try {
       const data = new FormData();
-      data.append("archivo", archivo);
-      const res = await fetch("/api/admin/subir-imagen", { method: "POST", body: data });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error || "No se pudo subir la imagen");
-      actualizar("imagen_url", json.url);
+data.append("archivo", archivo);
+
+const res = await fetch("/api/admin/subir-imagen", {
+  method: "POST",
+  body: data
+});
+
+const texto = await res.text();
+
+let json: any = {};
+
+if (texto) {
+  try {
+    json = JSON.parse(texto);
+  } catch {
+    throw new Error("El servidor devolvió una respuesta no válida: " + texto);
+  }
+}
+
+if (!res.ok) {
+  throw new Error(json.error || "No se pudo subir la imagen");
+}
+
+if (!json.url) {
+  throw new Error("La imagen se subió, pero el servidor no devolvió la URL");
+}
+
+actualizar("imagen_url", json.url);
     } catch (err: any) {
       setError(err.message);
     } finally {
